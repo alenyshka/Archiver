@@ -85,10 +85,20 @@ int isEmpty(struct queue *headPtr)
 }
 
 //Функция сортировки очереди
-void queueSort(struct queue *q, struct queue *headPtr)
+void queueSort(struct queue *tail)
 {
-	/*
-	*/
+	system("cls");
+	char swapStr[MAX_PATH];
+	struct queue *temp = NULL;
+	for (; tail; tail = tail->nextPtr)
+	{
+		if (strcmp(tail->code, tail->nextPtr->code) > 0)
+		{
+			strcpy(swapStr, tail->code);
+			strcpy(tail->code, tail->nextPtr->code);
+			strcpy(tail->nextPtr->code, swapStr);
+		}
+	}
 }
 
 void openFile(char *fileName, FILE **sourceFile)
