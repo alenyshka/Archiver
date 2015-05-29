@@ -15,6 +15,42 @@ struct tree_element
 	int frequency=0;
 };
 
+tree_element add_in_queue(tree_element *&root, char symbol)
+{
+	tree_element *temp;
+	temp = root;
+
+	if (!root) 
+	{
+		root = (tree_element*)calloc(1,sizeof(tree_element));
+		root->symbol = symbol;
+		root->frequency=root->frequency+1;
+	}
+	else
+	{
+		while (temp != NULL)
+		{
+			if (temp->symbol == symbol) { temp->frequency = temp->frequency + 1; return *root; }
+			temp = temp->next;
+		}
+
+		temp = root;
+
+		while (temp->next != NULL)
+		{
+			temp = temp->next;
+		}
+
+		tree_element *new_element;
+		new_element = (tree_element*)calloc(1, sizeof(tree_element));
+		new_element->symbol = symbol;
+		new_element->frequency = new_element->frequency + 1;
+		new_element->previous = temp;
+		temp->next = new_element;
+	}
+	return *root;
+}
+
 tree_element sorting_queue(tree_element *&root)
 {
 	tree_element *temp;
