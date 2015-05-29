@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_DEPRECATE
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
@@ -118,5 +118,51 @@ tree_element sorting_queue(tree_element *&root)
 		temp = root;
 	}
 	
+	return *root;
+}
+
+
+tree_element create_tree(tree_element *&root) {
+	tree_element *temp = root;
+	while (temp != NULL) {
+		if (temp->next == NULL) { 
+			break; 
+		}
+		tree_element *new_element;
+		new_element = (tree_element *)calloc(1 , sizeof(tree_element));
+		new_element->frequency = temp->frequency + temp->next->frequency;
+		new_element->left = temp;
+		new_element->right = temp->next;
+		if (temp->next->next == NULL) {
+			root = new_element;
+			return *root;
+		}
+		new_element->next = temp->next->next;
+		temp->next->next->previous = new_element;
+		temp = new_element;
+		root = temp;
+		if ((temp->frequency > temp->next->frequency) && (temp->next!=NULL)) {
+			root = temp->next;
+		}
+		if (temp->next != NULL) {
+			while ((temp->next != NULL) && (temp->frequency > temp->next->frequency)) {
+				tree_element *swap;
+				swap = (tree_element*)calloc(1, sizeof(tree_element));
+				if (temp->previous != NULL) {
+					temp->previous->next = temp->next;
+				}
+				if (temp->next->next != NULL) {
+					temp->next->next->previous = temp;
+				}
+				swap->previous = temp->previous;
+				swap->next = temp->next->next;
+				temp->previous = temp->next;
+				temp->next->next = temp;
+				temp->previous->previous = swap->previous;
+				temp->next = swap->next;
+			}
+		}
+		temp = root;
+	}
 	return *root;
 }
