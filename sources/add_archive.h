@@ -4,6 +4,15 @@ tree_element *root;
 char* input_text;
 int text_lenght;
 
+char memory_add(char *&input_text, int &text_lenght)
+{
+	printf("\nEnter text lenght:");
+	scanf_s("%d", &text_lenght);
+	printf("\n");
+	input_text = (char*)malloc(text_lenght*sizeof(char));
+	return *input_text;
+}
+
 char enter_text(char *&input_text, int text_lenght)
 {
 	FILE *f;
