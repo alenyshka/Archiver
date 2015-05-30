@@ -33,3 +33,27 @@ tree_element create_queue(tree_element *&root, char *&input_text, int text_lengh
 	}
 	return *root;
 }
+
+char recursion(tree_element *&temp, char **&table, int &table_lenght, char *str,int j) {
+	if (temp->symbol != '\0') {
+		table[table_lenght][0] = temp->symbol;
+		int k = 0;
+		while (str[k] != '\0') {
+			table[table_lenght][k + 1] = str[k];
+			k++;
+		}
+		table[table_lenght][k + 2] = '\0';
+		table_lenght++;
+	}
+	if (temp->left != NULL) {
+		str[j] = '0';
+		str[j + 1] = '\0';
+		recursion(temp->left, table, table_lenght, str, j+1);
+	}
+	if (temp->right!= NULL) {
+		str[j] = '1';
+		str[j + 1] = '\0';
+		recursion(temp->right, table, table_lenght, str, j+1);
+	}
+	return **table;
+}
