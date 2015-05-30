@@ -57,3 +57,15 @@ char recursion(tree_element *&temp, char **&table, int &table_lenght, char *str,
 	}
 	return **table;
 }
+
+tree_element create_table(tree_element *&root,char **&table,int &table_lenght)
+{
+	tree_element *temp;
+	temp = root;
+	table_lenght=0;
+	char* str;
+	str = (char*)calloc(15, sizeof(char));
+	int j = 0;
+	recursion(temp, table, table_lenght, str, j);
+	return *root;
+}
