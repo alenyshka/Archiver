@@ -69,3 +69,34 @@ tree_element create_table(tree_element *&root,char **&table,int &table_lenght)
 	recursion(temp, table, table_lenght, str, j);
 	return *root;
 }
+
+int archiving(char *&input_text,int text_lenght, char *&archive,int &archive_lenght, char **&table, int table_lenght)
+{
+	archive_lenght = 0;
+	for (int i = 0; i < text_lenght; i++)
+	{
+		for (int j = 0; j < table_lenght; j++)
+		{
+			if (input_text[i] == table[j][0])
+			{
+				int k = 1;
+				while (table[j][k] != '\0')
+				{
+					archive[archive_lenght] = table[j][k];
+					k++;
+					archive_lenght++;
+				}
+				break;
+			}
+		}
+	}
+	FILE *f;
+	if (!(f = fopen("output.txt", "a")))
+		return 0;
+	//for (int i = 0; i < archive_lenght; i++)
+	
+		fprintf(f, "%s", archive);
+
+	fclose(f);
+	return 0;
+}
